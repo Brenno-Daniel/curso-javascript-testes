@@ -2,6 +2,13 @@
 // ao se trabalhar com lodash no front-end, convém importar somente o método que tem interesse em usar ***
 import find from 'lodash/find';
 import remove from 'lodash/remove';
+// utilizaremos essa biblioteca para lidar com a falta de precisão do JS em operações financeiras, e ela também fornece alguns métodos úteis para operações básicas de matemática, dentre outros..
+import Dinero from 'dinero.js';
+
+const Money = Dinero;
+
+Money.defaultCurrency = 'BRL';
+Money.defaultPrecision = 2;
 
 export default class Cart {
   items = [];
@@ -22,12 +29,14 @@ export default class Cart {
 
   getTotal() {
     return this.items.reduce((accumulator, item) => {
-      return accumulator + item.quantity * item.product.price;
-    }, 0);
+      return accumulator.add(
+        Money({ amount: item.quantity * item.product.price }),
+      );
+    }, Money({ amount: 0 }));
   }
 
   summary() {
-    const total = this.getTotal();
+    const total = this.getTotal().getAmount();
     const items = this.items;
 
     return {
