@@ -5,22 +5,22 @@ import remove from 'lodash/remove';
 // utilizaremos essa biblioteca para lidar com a falta de precisão do JS em operações financeiras, e ela também fornece alguns métodos úteis para operações básicas de matemática, dentre outros..
 import Dinero from 'dinero.js';
 
-const calculatePercentageDiscount = (amount, item) => {
+const calculatePercentageDiscount = (amount, { condition, quantity }) => {
   if (
     // o ? é um recurso chamado: Optional chaining operator
     // basicamente, se o condition existe ele lê o percentage, se não existe então para no condition
-    item.condition?.percentage &&
-    item.quantity > item.condition.minimum
+    condition?.percentage &&
+    quantity > condition.minimum
   ) {
-    return amount.percentage(item.condition.percentage);
+    return amount.percentage(condition.percentage);
   }
   return Money({ amount: 0 });
 };
 
-const calculateQuantityDiscount = (amount, item) => {
-  const isEven = item.quantity % 2 === 0;
+const calculateQuantityDiscount = (amount, { condition, quantity }) => {
+  const isEven = quantity % 2 === 0;
 
-  if (item.condition?.quantity && item.quantity > item.condition.quantity) {
+  if (condition?.quantity && quantity > condition.quantity) {
     return amount.percentage(isEven ? 50 : 40);
   }
   return Money({ amount: 0 });
@@ -72,22 +72,19 @@ export default class Cart {
   }
 
   getTotal() {
-    return this.items.reduce((accumulator, item) => {
-      const amount = Money({ amount: item.quantity * item.product.price });
-      let discount = Money({ amount: 0 });
+    return this.items.reduce(
+      (accumulator, { condition, quantity, product }) => {
+        const amount = Money({ amount: quantity * product.price });
+        let discount = Money({ amount: 0 });
 
-      if (item.condition) {
-        discount = calculateDiscount(amount, item.quantity, item.condition);
-      }
+        if (condition) {
+          discount = calculateDiscount(amount, quantity, condition);
+        }
 
-      // if (item.condition?.percentage) {
-      //   discount = calculatePercentageDiscount(amount, item);
-      // } else if (item.condition?.quantity) {
-      //   discount = calculateQuantityDiscount(amount, item);
-      // }
-
-      return accumulator.add(amount).subtract(discount);
-    }, Money({ amount: 0 }));
+        return accumulator.add(amount).subtract(discount);
+      },
+      Money({ amount: 0 }),
+    );
   }
 
   summary() {
