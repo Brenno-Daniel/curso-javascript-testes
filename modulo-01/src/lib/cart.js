@@ -5,6 +5,25 @@ import remove from 'lodash/remove';
 // utilizaremos essa biblioteca para lidar com a falta de precisão do JS em operações financeiras, e ela também fornece alguns métodos úteis para operações básicas de matemática, dentre outros..
 import Dinero from 'dinero.js';
 
+const calculatePercentageDiscount = (amount, item) => {
+  if (
+    // o ? é um recurso chamado: Optional chaining operator
+    // basicamente, se o condition existe ele lê o percentage, se não existe então para no condition
+    item.condition?.percentage &&
+    item.quantity > item.condition.minimum
+  ) {
+    return amount.percentage(item.condition.percentage);
+  }
+  return Money({ amount: 0 });
+};
+
+const calculateQuantityDiscount = (amount, item) => {
+  if (item.condition?.quantity && item.quantity > item.condition.quantity) {
+    return amount.percentage(50);
+  }
+  return Money({ amount: 0 });
+};
+
 const Money = Dinero;
 
 Money.defaultCurrency = 'BRL';
@@ -32,12 +51,10 @@ export default class Cart {
       const amount = Money({ amount: item.quantity * item.product.price });
       let discount = Money({ amount: 0 });
 
-      if (
-        item.condition &&
-        item.condition.percentage &&
-        item.quantity > item.condition.minimum
-      ) {
-        discount = amount.percentage(item.condition.percentage);
+      if (item.condition?.percentage) {
+        discount = calculatePercentageDiscount(amount, item);
+      } else if (item.condition?.quantity) {
+        discount = calculateQuantityDiscount(amount, item);
       }
 
       return accumulator.add(amount).subtract(discount);
