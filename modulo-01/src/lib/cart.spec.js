@@ -62,4 +62,48 @@ describe('Cart', () => {
       expect(cart.getTotal()).toEqual(41872);
     });
   });
+
+  describe('checkout()', () => {
+    it('should return an object with the total and the list of items', () => {
+      cart.add({
+        product,
+        quantity: 5,
+      });
+
+      cart.add({
+        product: product2,
+        quantity: 3,
+      });
+
+      // toMatchSnapshot irá verificar se o retorno do método é igual ao snapshot do retorno esperado
+      // toMatchSnapshot cria uma pasta _snapshots_ com o arquivo de teste e o snapshot do retorno esperado
+      expect(cart.checkout()).toMatchSnapshot();
+    });
+
+    it('should return an object with the total and the list of items when summary() is called', () => {
+      cart.add({
+        product,
+        quantity: 5,
+      });
+
+      cart.add({
+        product: product2,
+        quantity: 3,
+      });
+
+      expect(cart.summary()).toMatchSnapshot();
+      expect(cart.getTotal()).toBeGreaterThan(0);
+    });
+
+    it('should reset the cart when checkout() is called', () => {
+      cart.add({
+        product: product2,
+        quantity: 3,
+      });
+
+      cart.checkout();
+
+      expect(cart.getTotal()).toEqual(0);
+    });
+  });
 });
