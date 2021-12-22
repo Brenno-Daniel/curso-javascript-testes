@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Um título",
+    "price": 20.9
+  },
+  {
+    "id": 2,
+    "title": "Outro título",
+    "price": 12.49
+  },
+  {
+    "id": 3,
+    "title": "Mais um título",
+    "price": 29.8
+  },
+  {
+    "id": 1,
+    "title": "Um último título",
+    "price": 40
+  }
+]
