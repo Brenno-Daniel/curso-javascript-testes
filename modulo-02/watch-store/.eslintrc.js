@@ -12,6 +12,6 @@ module.exports = {
   plugins: [],
   // add your custom rules here
   rules: {
-    'multi-word-component-names': false,
+    'vue/multi-word-component-names': 'off',
   },
 }
