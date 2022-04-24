@@ -40,10 +40,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^3.1.0",
     "eslint-plugin-vue": "^8.2.0",
+    "faker": "^5.5.3",
     "husky": "^7.0.4",
     "jest": "^27.4.4",
     "lint-staged": "^12.1.2",
-    "mirage.js": "^1.0.0",
+    "miragejs": "^0.1.43",
     "postcss": "^8.4.4",
     "prettier": "^2.5.1",
     "vue-jest": "^3.0.4"
