@@ -5,6 +5,10 @@
 export default function routes() {
   this.namespace = 'api';
 
+  // timing in milliseconds
+  // to simulate a slow connection
+  // this.timing = 5000;
+
   /*
    * A resource comprises all operations for a CRUD
    * operation. .get(), .post(), .put() and delete().
