@@ -32,7 +32,7 @@ export default {
   },
   async created() {
     try {
-      this.products = (await this.$axios.get('api/products')).data.products;
+      this.products = (await this.$axios.get('/api/products')).data.products;
       await this.$axios.get('api/users');
     } catch (error) {
       this.errorMessage = 'Problemas ao carregar a lista!';
