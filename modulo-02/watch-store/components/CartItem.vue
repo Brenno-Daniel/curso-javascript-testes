@@ -49,7 +49,10 @@
 export default {
   name: 'CartItem',
   props: {
-    product: Object,
+    product: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
