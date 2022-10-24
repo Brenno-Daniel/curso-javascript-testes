@@ -1,4 +1,4 @@
-import CartManager from '@/managers/CartManager';
+import { CartManager } from '@/managers/CartManager';
 import { makeServer } from '@/miragejs/server';
 
 describe('CartManager', () => {

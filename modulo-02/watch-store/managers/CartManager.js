@@ -5,7 +5,7 @@ const initialState = {
   items: [],
 };
 
-export default class CartManager {
+export class CartManager {
   state;
 
   constructor() {
