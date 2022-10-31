@@ -136,15 +136,7 @@ describe('ProductList - integration', () => {
   });
 
   it('should display error message when Promise rejects', async () => {
-    axios.get.mockReturnValue(Promise.reject(Error('500')));
-
-    const wrapper = mount(ProductList, {
-      mocks: {
-        $axios: axios,
-      },
-    });
-
-    await Vue.nextTick();
+    const { wrapper } = await mountProductList(1, {}, true);
 
     expect(wrapper.text()).toContain('Problemas ao carregar a lista!');
   });
