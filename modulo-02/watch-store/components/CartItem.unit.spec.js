@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import CartItem from '@/components/CartItem';
 import { makeServer } from '@/miragejs/server';
+import { CartManager } from '@/managers/CartManager';
 
 describe('CartItem', () => {
   let server;
@@ -71,16 +72,36 @@ describe('CartItem', () => {
     expect(quantity.text()).toContain('0');
   });
 
+  it('should display a button to remove item from cart', () => {
+    const { wrapper } = mountCartItem();
+    const button = wrapper.find('[data-testid="remove-button"]');
+
+    expect(button.exists()).toBe(true);
+  });
+
+  it('should call cart manager removeProduct() when button gets clicked', async () => {
+    const { wrapper, cartManager, product } = mountCartItem();
+    const spyRemoveButton = jest.spyOn(cartManager, 'removeProduct');
+
+    await wrapper.find('[data-testid="remove-button"]').trigger('click');
+
+    expect(spyRemoveButton).toHaveBeenCalledTimes(1);
+    expect(spyRemoveButton).toHaveBeenCalledWith(product.id);
+  });
+
   const mountCartItem = () => {
     const product = server.create('product', {
       title: 'Lindo relogio',
       price: '22.33',
     });
 
+    const cartManager = new CartManager();
+
     const wrapper = mount(CartItem, {
       propsData: { product },
+      mocks: { $cart: cartManager },
     });
 
-    return { wrapper, product };
+    return { wrapper, product, cartManager };
   };
 });
