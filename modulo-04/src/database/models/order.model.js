@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import { Model, DataTypes } from 'sequelize';
-import { sequelize, sync } from '../models';
+import { sequelize, sync } from '.';
 
 export class Order extends Model {}
 

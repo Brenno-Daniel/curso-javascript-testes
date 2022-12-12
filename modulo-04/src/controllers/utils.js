@@ -1,5 +1,5 @@
-import { logger } from '@/utils';
 import { StatusCodes } from 'http-status-codes';
+import { logger } from '@/utils';
 
 /**
  * Este método encapsula o envio dos erros de

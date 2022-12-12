@@ -43,10 +43,10 @@ export async function create(req, res, next) {
  */
 export const validate = method => {
   switch (method) {
-    case 'create': {
-      return [body('products', `Please provide a list of products`).exists()];
-    }
-    default:
-      throw new Error('Please provide a valid method name');
+  case 'create': {
+    return [ body('products', 'Please provide a list of products').exists() ];
+  }
+  default:
+    throw new Error('Please provide a valid method name');
   }
 };

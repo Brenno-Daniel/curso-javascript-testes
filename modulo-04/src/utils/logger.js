@@ -1,10 +1,12 @@
 /* istanbul ignore file */
-import { createLogger, transports, config, format } from 'winston';
+import {
+  createLogger, transports, config, format
+} from 'winston';
 
 const { combine, timestamp, json } = format;
 
 // Todos os logs são armazenados no arquivo combined.log
-const transportList = [new transports.File({ filename: 'logs/combined.log' })];
+const transportList = [ new transports.File({ filename: 'logs/combined.log' }) ];
 
 /**
  * Nota: outros transportes podem ser adicionados, tais como

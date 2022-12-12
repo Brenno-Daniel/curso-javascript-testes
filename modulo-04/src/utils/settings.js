@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 /**

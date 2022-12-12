@@ -1,7 +1,7 @@
-import { appError } from '@/utils';
-import { findOrSave } from '@/database/service';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import validator from 'validator';
+import { appError } from '@/utils';
+import { findOrSave } from '@/database/service';
 
 /**
  * Valida a presença do e-mail na requisição
@@ -27,7 +27,7 @@ export const get = async (req, res, next) => {
   }
 
   try {
-    const [user] = await findOrSave(req.headers.email);
+    const [ user ] = await findOrSave(req.headers.email);
     req.user = user;
     next();
   } catch (error) {
