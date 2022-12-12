@@ -1,8 +1,8 @@
 import * as validator from 'express-validator';
-import { appError } from '@/utils';
 import userStub from 'test/stubs/user.json';
 import orderStub from 'test/stubs/order.json';
 import ordersStub from 'test/stubs/orders.json';
+import { appError } from '@/utils';
 import * as service from '@/database/service';
 
 jest.mock('@/database/service');
